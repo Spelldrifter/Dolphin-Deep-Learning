@@ -1,1 +1,1 @@
-SRC_FILES=Autoencoder.cpp  main.cp
+SRC_FILES=Autoencoder.cpp  main.cpp  SoftMax.cpp  StackedAutoe
