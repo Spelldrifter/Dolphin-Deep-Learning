@@ -9,4 +9,5 @@ all: stackedAutoEncoder stackedAutoEncoder.mic
 stackedAutoEncoder: ${SRC_FILES} ${HEADER_FILES} Makefile
 	${CXX} ${SRC_FILES} ${FLAGS} -o stackedAutoEncoder
 	
-stackedAutoEncoder.mic: ${
+stackedAutoEncoder.mic: ${SRC_FILES} ${HEADER_FILES} Makefile
+	${
