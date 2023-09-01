@@ -6,4 +6,4 @@ FLAGS=-g -vec-report -mkl -O2 -fopenmp -openmp-report=2 -lrt
 
 all: stackedAutoEncoder stackedAutoEncoder.mic
 
-stackedAutoEncoder: 
+stackedAutoEncoder: ${SRC_FILES} ${HEADER_FI
