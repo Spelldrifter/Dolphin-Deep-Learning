@@ -4,4 +4,4 @@ CC=icc
 CXX=icpc
 FLAGS=-g -vec-report -mkl -O2 -fopenmp -openmp-report=2 -lrt
 
-all:
+all: stackedAutoEncoder stackedAutoEn
