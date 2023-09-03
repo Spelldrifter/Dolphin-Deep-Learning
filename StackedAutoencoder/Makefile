@@ -10,4 +10,5 @@ stackedAutoEncoder: ${SRC_FILES} ${HEADER_FILES} Makefile
 	${CXX} ${SRC_FILES} ${FLAGS} -o stackedAutoEncoder
 	
 stackedAutoEncoder.mic: ${SRC_FILES} ${HEADER_FILES} Makefile
-	${CXX} ${SRC_FILES} ${FLAGS} -
+	${CXX} ${SRC_FILES} ${FLAGS} -mmic -o stackedAutoEncoder.mic
+run
