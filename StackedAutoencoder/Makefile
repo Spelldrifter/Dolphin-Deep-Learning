@@ -12,4 +12,5 @@ stackedAutoEncoder: ${SRC_FILES} ${HEADER_FILES} Makefile
 stackedAutoEncoder.mic: ${SRC_FILES} ${HEADER_FILES} Makefile
 	${CXX} ${SRC_FILES} ${FLAGS} -mmic -o stackedAutoEncoder.mic
 run: stackedAutoEncoder
-	time ./sta
+	time ./stackedAutoEncoder
+run.mic: stackedAu
