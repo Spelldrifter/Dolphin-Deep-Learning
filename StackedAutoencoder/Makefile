@@ -15,4 +15,5 @@ run: stackedAutoEncoder
 	time ./stackedAutoEncoder
 run.mic: stackedAutoEncoder.mic
 	scp ./stackedAutoEncoder.mic mic0:.
-	ssh mic0 "tim
+	ssh mic0 "time ./stackedAutoEncoder.mic"
+
