@@ -113,3 +113,27 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
 		h2, hiddenSize);*/
   for(int i = 0;i < batchSize; i++){
     for(int j = 0; j < hiddenSize; j++){
+        h2[i * hiddenSize + j] = 0.0;
+        for(int k = 0; k < visibleSize; k++){
+            h2[i * hiddenSize + j] += v2[i * visibleSize + k] * W[j * visibleSize + k];
+        } 
+    }
+  }
+
+
+  //#pragma omp parallel for num_threads(NUM_THREADS/8)
+  //#pragma ivdep
+  for(int i = 0; i < batchSize * hiddenSize; i++){
+    h2[i] = 1 / (1 + exp(-1 * (h2[i] + c[i % hiddenSize])));
+  }
+
+  //c1 = h1'*v1 c2=h2'*v2
+  /*float* c1 = (float*)mkl_malloc(sizeof(float) * hiddenSize * visibleSize, 64);
+  float* c2 = (float*)mkl_malloc(sizeof(float) * hiddenSize * visibleSize, 64);
+  memset(c1, 0, sizeof(float) * hiddenSize * visibleSize);
+  memset(c2, 0, sizeof(float) * hiddenSize * visibleSize);*/
+  //printf("c1:%p\n",c1);
+  //printf("c2:%p\n",c2);
+  //#pragma omp sections
+  //{
+  //#pragma omp section
