@@ -14,4 +14,5 @@ stackedAutoEncoder.mic: ${SRC_FILES} ${HEADER_FILES} Makefile
 run: stackedAutoEncoder
 	time ./stackedAutoEncoder
 run.mic: stackedAutoEncoder.mic
-	scp ./stackedAutoE
+	scp ./stackedAutoEncoder.mic mic0:.
+	ssh mic0 "tim
