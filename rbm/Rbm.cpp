@@ -80,3 +80,36 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
   /*cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
 		batchSize, visibleSize, hiddenSize,
 		1.0, h1, hiddenSize,
+		W, visibleSize, 0.0, 
+		v2, visibleSize);*/
+  for(int i = 0; i < batchSize; i++){
+    for(int j = 0; j < visibleSize; j++){
+        v2[i * visibleSize + j] = 0.0;
+        for(int k = 0; k < hiddenSize; k++){
+            v2[i * visibleSize + j] += h1[i * hiddenSize + k] * W[k * visibleSize + j];
+        }
+    }
+  }
+  //printf("4\n");
+  //#pragma omp parallel for num_threads(NUM_THREADS/8)
+ // #pragma ivdep
+  for(int i = 0; i < batchSize * visibleSize; i++){
+    v2[i] = 1 / (1 + exp(-1 * (v2[i] + b[i % visibleSize])));
+    if(v2[i] > random[i % visibleSize])
+      v2[i] = 1;
+    else
+      v2[i] = 0;
+  }
+
+  //printf("%d",2);
+  //h2 = sigm(v2*W'+c)
+  /*float* h2 = (float*)mkl_malloc(sizeof(float) * batchSize * hiddenSize, 64);
+  memset(h2, 0, sizeof(float) * batchSize * hiddenSize);*/
+  //printf("h2:%p\n",h2);
+  /*cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasTrans,
+		batchSize, hiddenSize, visibleSize,
+		1.0, v2, visibleSize,
+		W, visibleSize, 0.0, 
+		h2, hiddenSize);*/
+  for(int i = 0;i < batchSize; i++){
+    for(int j = 0; j < hiddenSize; j++){
