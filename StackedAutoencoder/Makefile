@@ -19,4 +19,5 @@ run.mic: stackedAutoEncoder.mic
 
 clean:
 	rm -f stackedAutoEncoder
-	
+	rm -f stackedAutoEncoder.mic
+
