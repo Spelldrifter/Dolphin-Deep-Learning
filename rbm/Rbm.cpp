@@ -51,3 +51,32 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
   //printf("1\n");
   /*cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasTrans,
 		batchSize, hiddenSize, visibleSize,
+		1.0, data, visibleSize,
+		W, visibleSize, 0.0, 
+		h1, hiddenSize);*/
+  for(int i = 0; i < batchSize; i++){
+    for(int j = 0; j < hiddenSize; j++){
+        h1[i * hiddenSize + j] = 0;
+        for(int k = 0; k < visibleSize; k++){
+            h1[i * hiddenSize + j] += data[i * visibleSize + k] * W[j * visibleSize + k];
+        }
+    }
+  }
+  //printf("2\n");
+  //#pragma omp parallel for num_threads(NUM_THREADS/8)
+  //#pragma ivdep
+  for(int i = 0; i < batchSize * hiddenSize; i++){
+    h1[i] = 1 / (1 + exp(-1 * (h1[i] + c[i % hiddenSize])));
+    if(h1[i] > random[i % hiddenSize])
+      h1[i] = 1;
+    else
+      h1[i] = 0;
+  }
+//  printf("3\n");
+  //v2 = sigmrnd(h1*W+b) batchSize * visibleSize
+  /*float* v2 = (float*)mkl_malloc(sizeof(float) * batchSize * visibleSize, 64);
+  memset(v2, 0, sizeof(float) * batchSize * visibleSize);*/
+  //printf("v2:%p\n",v2);
+  /*cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
+		batchSize, visibleSize, hiddenSize,
+		1.0, h1, hiddenSize,
