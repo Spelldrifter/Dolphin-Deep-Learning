@@ -17,3 +17,6 @@ run.mic: stackedAutoEncoder.mic
 	scp ./stackedAutoEncoder.mic mic0:.
 	ssh mic0 "time ./stackedAutoEncoder.mic"
 
+clean:
+	rm -f stackedAutoEncoder
+	
