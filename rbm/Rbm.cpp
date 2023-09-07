@@ -194,3 +194,40 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
     vb[i] = momentum * vb[i];
   }
  
+  /*#pragma omp parallel for num_threads(NUM_THREADS/10)
+  for(int i = 0; i < batchSize; i++){
+    for(int j = 0; j < visibleSize; j++){
+      vb[j] += alpha * (data[i * visibleSize + j] - v2[i * visibleSize + j]) / batchSize;
+      error += (data[i * visibleSize + j] - v2[i * visibleSize + j]) * (data[i * visibleSize + j] - v2[i * visibleSize + j]);
+    }
+  }*/
+  
+  int tmp = batchSize * visibleSize - 1;
+  //#pragma omp parallel for num_threads(NUM_THREADS / 10)
+  for(int i = 0; i < batchSize * visibleSize; i++){
+     vb[i % visibleSize] += alpha * (data[i] - v2[i]);
+     error += (data[i] - v2[i]) * (data[i] - v2[i]);
+     if(i == tmp)
+       vb[i % visibleSize] /= batchSize;
+  }
+  //printf("7.2\n");
+ // }
+
+  //#pragma omp section
+  //{
+
+  //#pragma omp parallel for num_threads(NUM_THREADS/10)
+  //#pragma ivdep
+  for(int i = 0; i < hiddenSize; i++){
+    vc[i] = momentum * vc[i];
+  }
+  //cerr << "7.3.1" <<endl;
+  //#pragma omp parallel for num_threads(NUM_THREADS/10)
+  for(int i = 0; i < batchSize; i++){
+    //#pragma ivdep
+    for(int j = 0; j < hiddenSize; j++){
+      vc[j] += alpha * (h1[i * hiddenSize + j] - h2[i * hiddenSize + j]) / batchSize;
+    }
+  }
+ // printf("7.3.2\n");
+  //}
