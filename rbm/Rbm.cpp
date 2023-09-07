@@ -163,3 +163,34 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
 		c2, visibleSize);*/
   for(int i = 0; i < hiddenSize; i++){
     for(int j = 0; j < visibleSize; j++){
+        c2[i * visibleSize + j] = 0.0;
+        for(int k = 0; k < batchSize; k++){
+            c2[i * visibleSize + j] += h2[k * hiddenSize + i] * v2[k * visibleSize + j];
+        }
+    }
+  }
+ // printf("7\n");
+  //}
+  //}		
+  //compute gradient
+ // #pragma omp sections
+  //{
+  //#pragma omp section
+  //{
+  //#pragma omp parallel for num_threads(NUM_THREADS/10)
+  //#pragma ivdep
+  for(int i = 0; i < hiddenSize * visibleSize; i++){
+    vW[i] = momentum * vW[i] + alpha * (c1[i] - c2[i]) / batchSize;
+  }
+  //printf("7.1\n");
+  //}
+
+  //#pragma omp section
+  //{
+
+  //#pragma omp parallel for num_threads(NUM_THREADS/8)
+  //#pragma ivdep
+  for(int i = 0; i < visibleSize; i++){
+    vb[i] = momentum * vb[i];
+  }
+ 
