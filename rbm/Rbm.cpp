@@ -137,3 +137,29 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
   //#pragma omp sections
   //{
   //#pragma omp section
+  //{
+// printf("5\n");
+  /*cblas_sgemm(CblasRowMajor, CblasTrans, CblasNoTrans,
+		hiddenSize, visibleSize, batchSize,
+		1.0, h1, hiddenSize,
+		data, visibleSize, 0.0, 
+		c1, visibleSize);*/
+  for(int i = 0; i < hiddenSize; i++){
+    for(int j = 0; j < visibleSize; j++){
+        c1[i * visibleSize + j] = 0.0;
+        for(int k = 0; k < batchSize; k++){
+            c1[i * visibleSize + j] += h1[k * hiddenSize + i] * data[k * visibleSize + j];
+        }
+    }
+  }
+ //printf("6\n");
+  //}
+  //#pragma omp section
+  //{
+  /*cblas_sgemm(CblasRowMajor, CblasTrans, CblasNoTrans,
+		hiddenSize, visibleSize, batchSize,
+		1.0, h2, hiddenSize,
+		v2, visibleSize, 0.0, 
+		c2, visibleSize);*/
+  for(int i = 0; i < hiddenSize; i++){
+    for(int j = 0; j < visibleSize; j++){
