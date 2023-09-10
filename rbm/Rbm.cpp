@@ -231,3 +231,38 @@ float Rbm::computeCostAndGradient(float* &data, int batchSize){
   }
  // printf("7.3.2\n");
   //}
+  //}
+ //printf("8\n");
+  error /= batchSize;  
+ // mkl_free(h1);
+
+ // mkl_free(v2);
+ 
+ // mkl_free(h2);
+ 
+ // mkl_free(c1);
+
+  //mkl_free(c2);
+ 
+  return error;
+}
+
+void Rbm::updateWeight(){
+  //#pragma omp parallel for num_threads(NUM_THREADS/8)
+  //#pragma ivdep
+  for(int i = 0; i < hiddenSize * visibleSize; i++){
+    W[i] += vW[i];
+    if(i < visibleSize)
+      b[i] += vb[i];
+    if(i < hiddenSize)
+      c[i] += vc[i];
+  }
+}
+
+void Rbm::train(float* &data, int iter, int batchSize){
+  int count = 0;
+  float error = 0.0;
+  h1 = (float*)mkl_malloc(sizeof(float) * batchSize * hiddenSize, 64);
+  h2 = (float*)mkl_malloc(sizeof(float) * batchSize * hiddenSize, 64);
+  v2 = (float*)mkl_malloc(sizeof(float) * batchSize * visibleSize, 64);
+  c1 = (float*)mkl_malloc(sizeof(float) * hiddenSize * visibleSize, 64);
