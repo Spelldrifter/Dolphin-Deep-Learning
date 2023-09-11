@@ -266,3 +266,20 @@ void Rbm::train(float* &data, int iter, int batchSize){
   h2 = (float*)mkl_malloc(sizeof(float) * batchSize * hiddenSize, 64);
   v2 = (float*)mkl_malloc(sizeof(float) * batchSize * visibleSize, 64);
   c1 = (float*)mkl_malloc(sizeof(float) * hiddenSize * visibleSize, 64);
+  c2 = (float*)mkl_malloc(sizeof(float) * hiddenSize * visibleSize, 64);
+  while(count < iter){
+    error = computeCostAndGradient(data, batchSize);
+    printf("iter %d, reconstruction error: %f\n", count, error);
+    updateWeight();
+    count++;
+  }
+  mkl_free(h1);
+  mkl_free(h2);
+  mkl_free(v2);
+  mkl_free(c1);
+  mkl_free(c2);
+}
+
+
+
+
