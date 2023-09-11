@@ -1,2 +1,5 @@
 #ifndef RBM_H
-#defi
+#define RBM_H
+class Rbm{
+  public:
+    
