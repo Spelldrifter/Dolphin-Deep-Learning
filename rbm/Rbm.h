@@ -4,4 +4,5 @@ class Rbm{
   public:
     Rbm();
     Rbm(float momentum, float alpha, int visibleSize, int hiddenSize);
-    Rb
+    Rbm(const Rbm &rbm);
+    float compu
