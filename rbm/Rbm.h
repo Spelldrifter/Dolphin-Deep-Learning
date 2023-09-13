@@ -5,4 +5,4 @@ class Rbm{
     Rbm();
     Rbm(float momentum, float alpha, int visibleSize, int hiddenSize);
     Rbm(const Rbm &rbm);
-    float compu
+    float computeCostAndGradient(float* &data,
