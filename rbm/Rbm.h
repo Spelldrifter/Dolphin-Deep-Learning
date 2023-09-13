@@ -3,4 +3,5 @@
 class Rbm{
   public:
     Rbm();
-    Rbm(float momentum, float alpha, int visibleSize, 
+    Rbm(float momentum, float alpha, int visibleSize, int hiddenSize);
+    Rb
