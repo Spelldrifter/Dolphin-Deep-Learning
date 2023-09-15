@@ -9,4 +9,4 @@ class Rbm{
     void updateWeight();
     void train(float* &data, int iter, int batchSize);
     void sigm(float* &data, int batchSize);
- 
+    void sigmrnd(float
