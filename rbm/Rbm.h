@@ -7,4 +7,4 @@ class Rbm{
     Rbm(const Rbm &rbm);
     float computeCostAndGradient(float* &data, int batchSize);//data batchSize*visibleSize
     void updateWeight();
-    void train(f
+    void train(float* &data, int iter, in
