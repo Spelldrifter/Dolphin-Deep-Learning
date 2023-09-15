@@ -10,4 +10,6 @@ class Rbm{
     void train(float* &data, int iter, int batchSize);
     void sigm(float* &data, int batchSize);
     void sigmrnd(float* &data, int batchSize);
-    virtua
+    virtual ~Rbm();
+    
+    int visib
