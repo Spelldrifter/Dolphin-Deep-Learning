@@ -15,4 +15,5 @@ class Rbm{
     int visibleSize;
     int hiddenSize;
     float momentum;
-    float alpha
+    float alpha;
+    float* W;// hidde
