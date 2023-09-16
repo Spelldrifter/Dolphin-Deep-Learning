@@ -12,4 +12,6 @@ class Rbm{
     void sigmrnd(float* &data, int batchSize);
     virtual ~Rbm();
     
-    int visib
+    int visibleSize;
+    int hiddenSize;
+  
