@@ -18,4 +18,6 @@ class Rbm{
     float alpha;
     float* W;// hiddenSize * visibleSize
     float* b;//visibleSize
-    float* c
+    float* c;//hiddenSize
+    float* vW;
+    float
