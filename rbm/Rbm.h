@@ -23,4 +23,6 @@ class Rbm{
     float* vb;
     float* vc;
      
+    float* h1;
+    float* h2;
     float
