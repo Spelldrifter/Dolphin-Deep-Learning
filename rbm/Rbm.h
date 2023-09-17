@@ -17,4 +17,5 @@ class Rbm{
     float momentum;
     float alpha;
     float* W;// hiddenSize * visibleSize
-    float* b;//vi
+    float* b;//visibleSize
+    float* c
