@@ -20,4 +20,7 @@ class Rbm{
     float* b;//visibleSize
     float* c;//hiddenSize
     float* vW;
+    float* vb;
+    float* vc;
+     
     float
