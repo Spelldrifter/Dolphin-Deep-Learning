@@ -43,3 +43,36 @@ int main(int argc, char** argv) {
     mkl_free(data);
     delete rbm;
 }
+
+/*int main(int argc, char** argv){
+    iter = 10;
+    for(int i = 0; i < 10; i++){
+        pthread_mutex_init(&mutex[i], NULL);
+        pthread_cond_init(&cond[i], NULL);
+        full[i] = false;
+    }
+    
+    pthread_t lThread, tThread;
+    long t1 = 1, t2 = 2;
+    chunk = (float*)mkl_malloc(sizeof(float) * 576 * 100000, 64);
+    if(chunk == NULL)
+       printf("malloc failure\n");
+    pthread_create(&lThread, NULL, loadingThread, (void*)t1);
+    pthread_create(&tThread, NULL, trainingThread, (void*)t2);
+    pthread_join(lThread, NULL);
+    pthread_join(tThread, NULL);
+    
+    pthread_exit(0);
+    mkl_free(chunk);
+    return 0;
+}*/
+
+void* loadingThread(void*){
+    string prefix = "./DataSet/";
+    for(int i = 0; i < iter; i++){
+       int j = i + 1;
+       string suffix = itos(j);
+       string path = prefix + suffix + ".txt";
+       pthread_mutex_lock(&mutex[i % 10]);
+       printf("loading: enter critical section! %d\n", i % 10);
+       if(full[i % 10]){
