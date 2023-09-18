@@ -25,4 +25,6 @@ class Rbm{
      
     float* h1;
     float* h2;
-    float
+    float* v2;
+    float* c1;
+    float* c
