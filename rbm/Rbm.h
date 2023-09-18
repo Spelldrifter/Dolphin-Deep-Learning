@@ -27,4 +27,8 @@ class Rbm{
     float* h2;
     float* v2;
     float* c1;
-    float* c
+    float* c2;
+    float* random;
+
+};
+#en
