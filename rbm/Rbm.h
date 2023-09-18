@@ -31,4 +31,4 @@ class Rbm{
     float* random;
 
 };
-#en
+#endif
