@@ -76,3 +76,30 @@ void* loadingThread(void*){
        pthread_mutex_lock(&mutex[i % 10]);
        printf("loading: enter critical section! %d\n", i % 10);
        if(full[i % 10]){
+           printf("loading: block %d is still full, wait for use!\n", i % 10);
+           pthread_cond_wait(&cond[i % 10], &mutex[i % 10]);
+       }
+       printf("loading: block %d is empty, we need to load!\n", i % 10);
+       float* data = &chunk[(i % 10) * 10000];
+       readData(data, path);
+       printf("finish reading %d.txt\n", j);
+       full[i % 10] = true;
+       printf("loading: begin to exit critical section! %d\n", i % 10);
+       pthread_mutex_unlock(&mutex[i % 10]);
+       printf("loading: begin to signal cond %d\n", i % 10);
+       pthread_cond_signal(&cond[i % 10]);
+    }
+    printf("finish loading all the data\n");
+    return NULL;
+}
+
+void* trainingThread(void*){
+    int i = 0;
+    Rbm* rbm = new Rbm(0.1, 1, 576, 1024);
+    while(i < iter){
+        pthread_mutex_lock(&mutex[i % 10]);
+        printf("training: enter critical section! %d\n", i % 10);
+        if(!full[i % 10]){
+            printf("training: block %d is empty, wait for loading!\n", i % 10);
+            pthread_cond_wait(&cond[i % 10], &mutex[i % 10]);
+        }
