@@ -103,3 +103,22 @@ void* trainingThread(void*){
             printf("training: block %d is empty, wait for loading!\n", i % 10);
             pthread_cond_wait(&cond[i % 10], &mutex[i % 10]);
         }
+        //get the data and train
+        printf("training: block %d is full, begin to train\n", i % 10);
+        float* data = &chunk[(i % 10) * 10000];
+        float* p;
+        for(int j = 0; j < 50; j++){
+           p = &data[j * 200];
+           rbm->train(p, 1, 200);
+	   printf("iter:%d\n",j);
+        }
+        printf("finish training %d.txt\n", (i+1));
+        full[i % 10] = false;
+        printf("training: begin to exit critical section %d\n", i % 10);
+        pthread_mutex_unlock(&mutex[i % 10]);
+        printf("training: begin to signal loading thread to load %d\n", i % 10);
+        pthread_cond_signal(&cond[i % 10]);
+        i++;
+    }
+    printf("finish training all the data\n");
+    return NULL;
