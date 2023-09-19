@@ -122,3 +122,38 @@ void* trainingThread(void*){
     }
     printf("finish training all the data\n");
     return NULL;
+}
+
+string itos(int &i){
+    stringstream s;
+    s << i;
+    return s.str();
+}
+
+void readData(float* &data, string filename){
+	ifstream fin(filename.c_str(),ios::in);
+	if(fin == NULL){
+	   printf("error!\n");
+           cerr << filename << endl;
+        }
+        
+        memset(tstr, 0, sizeof(char) * 1000000);
+	string str="";
+	char *p;
+	const char *d = " ";
+
+	int i = 0;
+	while(getline(fin, str)){
+		strcpy(tstr,str.c_str());
+		char *tmp = tstr;
+		p = strtok(tmp,d);
+		while(p){
+			sscanf(p,"%f",&data[i]);
+			p = strtok(NULL,d);
+			i++;
+		}
+	}
+        printf("read %d data\n", i);
+	fin.close();
+
+}
