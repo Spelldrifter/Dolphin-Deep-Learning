@@ -2,4 +2,5 @@ SRC_FILES=Rbm.cpp main.cpp
 HEADER_FILES=Rbm.h consts.h
 CC=icc
 CXX=icpc
-FLAGS=-g -vec-report -mkl
+FLAGS=-g -vec-report -mkl -O2 -fopenmp -openmp-report=2
+all: rb
