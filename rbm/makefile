@@ -4,4 +4,4 @@ CC=icc
 CXX=icpc
 FLAGS=-g -vec-report -mkl -O2 -fopenmp -openmp-report=2
 all: rbm rbm.mic
-rbm: ${SRC_FILES} ${
+rbm: ${SRC_FILES} ${HEADER_FILES} makefile
