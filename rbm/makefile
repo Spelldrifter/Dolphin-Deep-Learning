@@ -10,4 +10,4 @@ rbm.mic: ${SRC_FILES} ${HEADER_FILES} makefile
 	${CXX} ${SRC_FILES} ${FLAGS} -mmic -o rbm.mic
 clean:
 	rm -f rbm
-	rm 
+	rm -f rbm.mic
