@@ -7,4 +7,7 @@ all: rbm rbm.mic
 rbm: ${SRC_FILES} ${HEADER_FILES} makefile
 	${CXX} ${SRC_FILES} ${FLAGS} -o rbm
 rbm.mic: ${SRC_FILES} ${HEADER_FILES} makefile
-	${CXX} ${SRC_FILES} ${FLAGS} -mmic -o
+	${CXX} ${SRC_FILES} ${FLAGS} -mmic -o rbm.mic
+clean:
+	rm -f rbm
+	rm 
